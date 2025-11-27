@@ -22,6 +22,7 @@ A beautiful Flutter application that fetches and displays weather information fr
 1. Clone or download this project
 2. Navigate to the project directory
 3. Install dependencies:
+
    ```bash
    flutter pub get
    ```
@@ -65,4 +66,3 @@ lib/
 - The app uses metric units (Celsius, m/s)
 - City names should be entered in English
 - Internet connection is required to fetch weather data
-
