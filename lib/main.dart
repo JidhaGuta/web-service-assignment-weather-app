@@ -33,7 +33,8 @@ class WeatherScreen extends StatefulWidget {
   State<WeatherScreen> createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProviderStateMixin {
+class _WeatherScreenState extends State<WeatherScreen>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _cityController = TextEditingController();
   final WeatherService _weatherService = WeatherService();
   final FocusNode _searchFocusNode = FocusNode();
@@ -60,7 +61,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
+    ).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
   }
 
   Future<void> _fetchWeather() async {
@@ -98,7 +100,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
 
   void _onSearchChanged(String value) {
     _debounceTimer?.cancel();
-    
+
     if (value.trim().isEmpty) {
       setState(() {
         _suggestions = [];
@@ -140,7 +142,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
 
   Color _getWeatherColor() {
     if (_weatherData == null) return Colors.blue.shade400;
-    
+
     final temp = _weatherData!.temperature;
     if (temp < 0) return Colors.blue.shade800;
     if (temp < 10) return Colors.blue.shade600;
@@ -213,7 +215,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                               'Weather Pro',
                               style: TextStyle(
                                 fontSize: 32,
-                                fontWeight: FontWeight.w800,
+                                fontWeight: FontWeight.w700,
                                 color: Colors.white,
                                 letterSpacing: -0.5,
                               ),
@@ -222,7 +224,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          _weatherData != null 
+                          _weatherData != null
                               ? 'Current weather in ${_weatherData!.cityName}'
                               : 'Get real-time weather information',
                           style: TextStyle(
@@ -236,7 +238,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                     ),
                   ),
                   const SizedBox(height: 40),
-                  
+
                   // Search Section
                   SlideTransition(
                     position: _slideAnimation,
@@ -262,7 +264,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                               controller: _cityController,
                               focusNode: _searchFocusNode,
                               decoration: InputDecoration(
-                                hintText: 'Search city... (e.g., London, Tokyo)',
+                                hintText:
+                                    'Search city... (e.g., London, Tokyo)',
                                 hintStyle: TextStyle(
                                   color: Colors.grey.shade500,
                                   fontSize: 16,
@@ -273,7 +276,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                     color: weatherColor.withOpacity(0.1),
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(Icons.search, color: weatherColor),
+                                  child:
+                                      Icon(Icons.search, color: weatherColor),
                                 ),
                                 suffixIcon: _cityController.text.isNotEmpty
                                     ? IconButton(
@@ -282,7 +286,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                             color: Colors.grey.shade200,
                                             shape: BoxShape.circle,
                                           ),
-                                          child: Icon(Icons.clear, 
+                                          child: Icon(
+                                            Icons.clear,
                                             color: Colors.grey.shade600,
                                             size: 20,
                                           ),
@@ -319,7 +324,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                               },
                             ),
                           ),
-                          
+
                           // Enhanced Suggestions List
                           if (_showSuggestions && _suggestions.isNotEmpty)
                             GestureDetector(
@@ -337,7 +342,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                     ),
                                   ],
                                 ),
-                                constraints: const BoxConstraints(maxHeight: 200),
+                                constraints:
+                                    const BoxConstraints(maxHeight: 200),
                                 child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
@@ -360,7 +366,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                                 width: 36,
                                                 height: 36,
                                                 decoration: BoxDecoration(
-                                                  color: weatherColor.withOpacity(0.1),
+                                                  color: weatherColor
+                                                      .withOpacity(0.1),
                                                   shape: BoxShape.circle,
                                                 ),
                                                 child: Icon(
@@ -372,13 +379,15 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                               const SizedBox(width: 12),
                                               Expanded(
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       city.name,
                                                       style: const TextStyle(
                                                         fontSize: 16,
-                                                        fontWeight: FontWeight.w600,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                         color: Colors.black87,
                                                       ),
                                                     ),
@@ -387,7 +396,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                                         city.country,
                                                         style: TextStyle(
                                                           fontSize: 12,
-                                                          color: Colors.grey.shade600,
+                                                          color: Colors
+                                                              .grey.shade600,
                                                         ),
                                                       ),
                                                   ],
@@ -411,9 +421,9 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 20),
-                  
+
                   // Enhanced Search Button
                   SlideTransition(
                     position: _slideAnimation,
@@ -448,7 +458,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                   width: 24,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
-                                    valueColor: AlwaysStoppedAnimation<Color>(weatherColor),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        weatherColor),
                                   ),
                                 )
                               : const Row(
@@ -469,9 +480,9 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                       ),
                     ),
                   ),
-                  
+
                   const SizedBox(height: 30),
-                  
+
                   // Enhanced Error Message
                   if (_errorMessage != null)
                     SlideTransition(
@@ -494,7 +505,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                                   color: Colors.red.shade100,
                                   shape: BoxShape.circle,
                                 ),
-                                child: Icon(Icons.error_outline, 
+                                child: Icon(
+                                  Icons.error_outline,
                                   color: Colors.red.shade700,
                                   size: 20,
                                 ),
@@ -527,7 +539,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                         ),
                       ),
                     ),
-                  
+
                   // Enhanced Weather Data Display
                   if (_weatherData != null) ...[
                     const SizedBox(height: 30),
@@ -539,9 +551,11 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                       ),
                     ),
                   ],
-                  
+
                   // Empty State
-                  if (_weatherData == null && !_isLoading && _errorMessage == null)
+                  if (_weatherData == null &&
+                      !_isLoading &&
+                      _errorMessage == null)
                     SlideTransition(
                       position: _slideAnimation,
                       child: FadeTransition(
@@ -607,8 +621,9 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                   color: weatherColor.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(Icons.location_on, 
-                  color: weatherColor, 
+                child: Icon(
+                  Icons.location_on,
+                  color: weatherColor,
                   size: 22,
                 ),
               ),
@@ -619,7 +634,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                   Text(
                     _weatherData!.cityName,
                     style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 25,
                       fontWeight: FontWeight.w700,
                       color: Colors.black87,
                     ),
@@ -637,7 +652,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             ],
           ),
           const SizedBox(height: 30),
-          
+
           // Temperature with weather icon
           Stack(
             alignment: Alignment.center,
@@ -679,7 +694,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             ],
           ),
           const SizedBox(height: 16),
-          
+
           // Description with improved styling
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -698,10 +713,10 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             ),
           ),
           const SizedBox(height: 30),
-          
-          const Divider(height: 1, color: Colors.grey.shade300),
+
+          const Divider(height: 1, color: Color.fromARGB(255, 245, 159, 159)),
           const SizedBox(height: 24),
-          
+
           // Enhanced Weather Details Grid
           GridView.count(
             shrinkWrap: true,
