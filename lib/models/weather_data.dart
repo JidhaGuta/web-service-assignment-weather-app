@@ -6,6 +6,7 @@ class WeatherData {
   final int humidity;
   final String description;
   final double windSpeed;
+  final int pressure;
 
   WeatherData({
     required this.cityName,
@@ -15,6 +16,7 @@ class WeatherData {
     required this.humidity,
     required this.description,
     required this.windSpeed,
+    required this.pressure,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
@@ -26,7 +28,7 @@ class WeatherData {
       humidity: json['main']['humidity'] ?? 0,
       description: json['weather'][0]['description'] ?? '',
       windSpeed: (json['wind']['speed'] ?? 0.0).toDouble(),
+      pressure: json['main']['pressure'] ?? 0,
     );
   }
 }
-
